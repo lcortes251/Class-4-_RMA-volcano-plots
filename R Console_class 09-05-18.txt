@@ -1,0 +1,309 @@
+
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[R.app GUI 1.70 (7543) x86_64-apple-darwin15.6.0]
+
+[Workspace restored from /Users/Laura/.RData]
+[History restored from /Users/Laura/.Rapp.history]
+
+> library(SpikeInSubset)
+Loading required package: Biobase
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colMeans,
+    colnames, colSums, dirname, do.call, duplicated, eval, evalq,
+    Filter, Find, get, grep, grepl, intersect, is.unsorted, lapply,
+    lengths, Map, mapply, match, mget, order, paste, pmax, pmax.int,
+    pmin, pmin.int, Position, rank, rbind, Reduce, rowMeans, rownames,
+    rowSums, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
+
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: affy
+> data(spikein95)
+> image(spikein95)
+Hit <Return> to see next plot: ids <- geneNames(spikein95)
+Hit <Return> to see next plot: ids[1:10]
+Hit <Return> to see next plot: mas5.eset <- mas5(spikein95)
+Hit <Return> to see next plot: mas5.e <- log2(exprs(mas5.eset))
+Hit <Return> to see next plot: boxplot(spikein95)
+> x11()
+> boxplot(mas5.e, col = 2:5)
+Error in boxplot(mas5.e, col = 2:5) : object 'mas5.e' not found
+> density1 <- density(mas5.e[, 1])
+Error in density(mas5.e[, 1]) : object 'mas5.e' not found
+> plot(density1, main = "MAS5 expression measure distributions")
+Error in plot(density1, main = "MAS5 expression measure distributions") : 
+  object 'density1' not found
+> density2 <- density(mas5.e[, 2])
+Error in density(mas5.e[, 2]) : object 'mas5.e' not found
+> lines(density2, col = "red")
+Error in lines(density2, col = "red") : object 'density2' not found
+> density3 <- density(mas5.e[, 3])
+Error in density(mas5.e[, 3]) : object 'mas5.e' not found
+> lines(density3, col = "blue")
+Error in lines(density3, col = "blue") : object 'density3' not found
+> 
+> # Making MA plots 
+> # M: difference in average log intensities
+> # A: average log intensities
+> 
+> d <- rowMeans(mas5.e[,1:3]) - rowMeans(mas5.e[,4:6])
+Error in rowMeans(mas5.e[, 1:3]) : object 'mas5.e' not found
+> a <- rowMeans(mas5.e)
+Error in rowMeans(mas5.e) : object 'mas5.e' not found
+> plot(a, d, ylim = c(-5, 5), main = "MAS 5.0 MA plot", xlab = "A", ylab = "M", pch = ".")
+Error in plot(a, d, ylim = c(-5, 5), main = "MAS 5.0 MA plot", xlab = "A",  : 
+  object 'a' not found
+> abline(h = c(-1, 1))
+Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...) : 
+  plot.new has not been called yet
+> 
+> ids <- geneNames(spikein95)
+
+Warning messages:
+1: replacing previous import ‘AnnotationDbi::tail’ by ‘utils::tail’ when loading ‘hgu95acdf’ 
+2: replacing previous import ‘AnnotationDbi::head’ by ‘utils::head’ when loading ‘hgu95acdf’ 
+> Hit <Return> to see next plot: ids[1:10]
+Error: unexpected '>' in "Hit <Return>"
+> Hit <Return> to see next plot: mas5.eset <- mas5(spikein95)
+Error: unexpected '>' in "Hit <Return>"
+> Hit <Return> to see next plot: mas5.e <- log2(exprs(mas5.eset))
+Error: unexpected '>' in "Hit <Return>"
+> Hit <Return> to see next plot: boxplot(spikein95)
+Error: unexpected '>' in "Hit <Return>"
+> 
+> ids[1:10]
+ [1] "100_g_at"  "1000_at"   "1001_at"   "1002_f_at" "1003_s_at" "1004_at"  
+ [7] "1005_at"   "1006_at"   "1007_s_at" "1008_f_at"
+> mas5.eset <- mas5(spikein95)
+background correction: mas 
+PM/MM correction : mas 
+expression values: mas 
+background correcting...done.
+12626 ids to be processed
+|                    |
+|####################|
+> mas5.e <- log2(exprs(mas5.eset))
+> boxplot(spikein95)
+> x11()
+> boxplot(mas5.e, col = 2:5)
+> density1 <- density(mas5.e[, 1])
+>  plot(density1, main = "MAS5 expression measure distributions")
+> density2 <- density(mas5.e[, 2])
+> lines(density2, col = "red")
+> density3 <- density(mas5.e[, 3])
+> lines(density3, col = "blue")
+> d <- rowMeans(mas5.e[,1:3]) - rowMeans(mas5.e[,4:6])
+> a <- rowMeans(mas5.e)
+> plot(a, d, ylim = c(-5, 5), main = "MAS 5.0 MA plot", xlab = "A", ylab = "M", pch = ".")
+> abline(h = c(-1, 1))
+> spikedin <- colnames(pData(spikein95))
+> spikedIndex <- match(spikedin,featureNames(mas5.eset))
+> points(a[]spikedIndex], d[spinkedIndex], pch=19, col="red")
+Error: unexpected symbol in "points(a[]spikedIndex"
+> spikedin <- colnames(pData(spikein95))
+> spikedIndex <- match(spikedin,featureNames(mas5.eset))
+> points(a[spikedIndex], d[spinkedIndex], pch=19, col="red")
+Error in xy.coords(x, y) : object 'spinkedIndex' not found
+> points(a[spikedIndex], d[spikedIndex], pch=19, col="red")
+> pdata(spikein95)
+Error in pdata(spikein95) : could not find function "pdata"
+> pData(spikein95)
+                 37777_at 684_at 1597_at 38734_at 39058_at 36311_at 36889_at
+1521a99hpp_av06      0.00   0.25     0.5        1        2        4        8
+1532a99hpp_av04      0.00   0.25     0.5        1        2        4        8
+2353a99hpp_av08      0.00   0.25     0.5        1        2        4        8
+1521b99hpp_av06      0.25   0.50     1.0        2        4        8       16
+1532b99hpp_av04      0.25   0.50     1.0        2        4        8       16
+2353b99hpp_av08r     0.25   0.50     1.0        2        4        8       16
+                 1024_at 36202_at 36085_at 40322_at 407_at 1091_at 1708_at
+1521a99hpp_av06       16       32       64      128   0.00     512    1024
+1532a99hpp_av04       16       32       64      128   0.00     512    1024
+2353a99hpp_av08       16       32       64      128   0.00     512    1024
+1521b99hpp_av06       32       64      128      256   0.25    1024       0
+1532b99hpp_av04       32       64      128      256   0.25    1024       0
+2353b99hpp_av08r      32       64      128      256   0.25    1024       0
+                 33818_at 546_at
+1521a99hpp_av06       256     32
+1532a99hpp_av04       256     32
+2353a99hpp_av08       256     32
+1521b99hpp_av06       512     64
+1532b99hpp_av04       512     64
+2353b99hpp_av08r      512     64
+> colnames(pData(spikein95))
+ [1] "37777_at" "684_at"   "1597_at"  "38734_at" "39058_at" "36311_at"
+ [7] "36889_at" "1024_at"  "36202_at" "36085_at" "40322_at" "407_at"  
+[13] "1091_at"  "1708_at"  "33818_at" "546_at"  
+> ESR1 <- "211233_x_at_1"
+> head(spikedin)
+[1] "37777_at" "684_at"   "1597_at"  "38734_at" "39058_at" "36311_at"
+> head(spikedindex)
+Error in head(spikedindex) : object 'spikedindex' not found
+> head(spikedIndex)
+[1]  7843 12244   658  8810  9137  6363
+> genes_of_interest <- c("100_g_at", "1000_at", "1002_f_at")
+> spikedIndex <- match(ESR1,featureNames(mas5.eset))
+> points(a[spikedIndex], d[spikedIndex], pch=19, col="red")
+> points(a[spikedIndex], d[spikedIndex], pch=19, col="green")
+> points(a[spikedIndex], d[spikedIndex], pch=19, col="green")
+> 
+> spikedIndex <- match(genes_of_interest,featureNames(mas5.eset))
+> points(a[spikedIndex], d[spikedIndex], pch=19, col="green")
+> genes_of_interest <- c("669_s_at", "670_s_at", "671_s_at", "672_s_at", "673_s_at")
+> new_genes_of_interest <- c("669_s_at", "670_s_at", "671_s_at", "672_s_at", "673_s_at")
+> spikedIndex <- match(new_genes_of_interest,featureNames(mas5.eset))
+> points(a[spikedIndex], d[spikedIndex], pch=19, col="orange")
+> new_genes_of_interest <- c("669_s_at", "670_s_at", "671_at", "672_at", "673_at")
+>  spikedIndex <- match(new_genes_of_interest,featureNames(mas5.eset))points(a[spikedIndex], d[spikedIndex], pch=19, col="orange")
+Error: unexpected symbol in " spikedIndex <- match(new_genes_of_interest,featureNames(mas5.eset))points"
+> spikedIndex <- match(new_genes_of_interest,featureNames(mas5.eset))
+> points(a[spikedIndex], d[spikedIndex], pch=19, col="orange")
+> rma.eset <- rma(spikein95)
+Background correcting
+Normalizing
+Calculating Expression
+> rma.e <- exprs(rma.eset)
+> d <- rowMeans(mas5.e[1:3]), - rowMeans(mas5.3[4:6])
+Error: unexpected ',' in "d <- rowMeans(mas5.e[1:3]),"
+> d <- rowMeans(mas5.e[1:3]), - rowMeans(mas5.e[4:6])
+Error: unexpected ',' in "d <- rowMeans(mas5.e[1:3]),"
+> d <- rowMeans(mas5.e[1:3]) - rowMeans(mas5.e[4:6]
++ 
++ 
++ 
++ d <- rowMeans(mas5.e[1:3]) - rowMeans(mas5.e[4:6]
+Error: unexpected symbol in:
+"
+d"
+> d <- rowMeans(rma.e[1:3]) - rowMeans(rma.e[4:6])
+Error in rowMeans(rma.e[1:3]) : 
+  'x' must be an array of at least two dimensions
+> a <- rowMeans(rma.e)
+> x(11)
+Error in x(11) : could not find function "x"
+> x11()
+> d <- rowMeans(rma.e[1:3]) - rowMeans(rma.e[4:6])
+Error in rowMeans(rma.e[1:3]) : 
+  'x' must be an array of at least two dimensions
+> a <- rowMeans(rma.e)
+> plot(a, d, ylim = c(-5, 5), main = "MAS 5.0 MA plot rma.e", xlab = "A", ylab = "M", pch = ".")
+>  
+> plot(a, d, ylim = c(-5, 5), main = "MAS 5.0 MA plot rma.e")
+> rma.eset <- rma(spikein95)
+Background correcting
+Normalizing
+Calculating Expression
+> rma.e <- exprs(rma.eset)
+> d <- rowMeans(rma.e[1:3]) - rowMeans(rma.e[4:6])
+Error in rowMeans(rma.e[1:3]) : 
+  'x' must be an array of at least two dimensions
+> a <- rowMeans(rma.e)
+> plot(a, d, ylim = c(-5, 5), main = "MAS 5.0 MA plot rma.e", xlab = "A", ylab = "M", pch = ".")
+> x11()
+> rma.eset <- rma(spikein95)
+Background correcting
+Normalizing
+Calculating Expression
+> rma.e <- exprs(rma.eset)
+> d <- rowMeans(rma.e[1:3]) - rowMeans(rma.e[4:6])
+Error in rowMeans(rma.e[1:3]) : 
+  'x' must be an array of at least two dimensions
+>  a <- rowMeans(rma.e)
+> plot(a, d, ylim = c(-5, 5), main = "MAS 5.0 MA plot rma.e", xlab = "A", ylab = "M", pch = ".")
+> x11()
+> rma.eset <- rma(spikein95)
+Background correcting
+Normalizing
+Calculating Expression
+> rma.e <- exprs(rma.eset)
+> d <- rowMeans(rma.e[,1:3]) - rowMeans(rma.e[,4:6])
+> a <- rowMeans(rma.e)
+> plot(a, d, ylim = c(-2, 2), main = "RMA MA plot", xlab = "A", ylab = "M", pch = ".")
+> abline(h = c(-1, 1))
+> source("https://bioconductor.org/biocLite.R")
+Bioconductor version 3.7 (BiocInstaller 1.30.0), ?biocLite for help
+> biocLite("genefilter")
+BioC_mirror: https://bioconductor.org
+Using Bioconductor 3.7 (BiocInstaller 1.30.0), R 3.5.1 (2018-07-02).
+Installing package(s) ‘genefilter’
+also installing the dependencies ‘bitops’, ‘XML’, ‘xtable’, ‘RCurl’, ‘annotate’
+
+trying URL 'https://mirrors.nics.utk.edu/cran/bin/macosx/el-capitan/contrib/3.5/bitops_1.0-6.tgz'
+Content type 'application/x-gzip' length 25449 bytes (24 KB)
+==================================================
+downloaded 24 KB
+
+trying URL 'https://mirrors.nics.utk.edu/cran/bin/macosx/el-capitan/contrib/3.5/XML_3.98-1.16.tgz'
+Content type 'application/x-gzip' length 2205795 bytes (2.1 MB)
+==================================================
+downloaded 2.1 MB
+
+trying URL 'https://mirrors.nics.utk.edu/cran/bin/macosx/el-capitan/contrib/3.5/xtable_1.8-3.tgz'
+Content type 'application/x-gzip' length 750457 bytes (732 KB)
+==================================================
+downloaded 732 KB
+
+trying URL 'https://mirrors.nics.utk.edu/cran/bin/macosx/el-capitan/contrib/3.5/RCurl_1.95-4.11.tgz'
+Content type 'application/x-gzip' length 985623 bytes (962 KB)
+==================================================
+downloaded 962 KB
+
+trying URL 'https://bioconductor.org/packages/3.7/bioc/bin/macosx/el-capitan/contrib/3.5/annotate_1.58.0.tgz'
+Content type 'application/x-gzip' length 2201525 bytes (2.1 MB)
+==================================================
+downloaded 2.1 MB
+
+trying URL 'https://bioconductor.org/packages/3.7/bioc/bin/macosx/el-capitan/contrib/3.5/genefilter_1.62.0.tgz'
+Content type 'application/x-gzip' length 2117955 bytes (2.0 MB)
+==================================================
+downloaded 2.0 MB
+
+
+The downloaded binary packages are in
+	/var/folders/y8/f1hrsz096k3_ysysnbfbkwt00000gn/T//RtmprCZPbh/downloaded_packages
+> library("genefilter")
+> pData(rma.eset) <- pData(mas5.eset)
+> tt <- rowMeans(rma.e)
+> lod <- tt
+> plot(d, lod, cex = 0.25, main = "Volcano plot for MA", xlim = c(-2, 2), xlab = "M", ylab = "A", yaxt = "n")
+> axis(2, at = seq(0, 3, by = 1), labels = 10^(-seq(0, 3, by = 1)))
+> points(d[spikedIndex], lod[spikedIndex], pch = 19, col = "red")
+> abline(h = 2, v = c(-1, 1))
+> 
